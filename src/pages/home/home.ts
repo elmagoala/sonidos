@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ANIMALES } from '../../data/data.animales';
+import { Animal } from '../../interfaces/animal.interface';
 
 @Component({
   selector: 'page-home',
@@ -7,7 +8,7 @@ import { ANIMALES } from '../../data/data.animales';
 })
 export class HomePage {
 
-  animales:any[] = [];
+  animales:Animal[] = [];
   constructor() {
     this.animales = ANIMALES.splice(0);
   }
