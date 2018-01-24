@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ANIMALES } from '../../data/data.animales';
 import { Animal } from '../../interfaces/animal.interface';
+import { Refresher } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -31,6 +32,15 @@ export class HomePage {
 
   borrarAnimal(index:number){
     this.animales.splice(index,1);
+  }
+
+  refrescarLista(refresher:Refresher) {
+    setTimeout(()=>{
+        this.animales = ANIMALES.slice(0);
+        refresher.complete();
+    },
+    1500);
+
   }
 
   private pausarAudio( animalSelec:Animal ) {
