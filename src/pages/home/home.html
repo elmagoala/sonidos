@@ -3,11 +3,15 @@
     <ion-title>
       Sonidos APP
     </ion-title>
+    <ion-buttons end>
+      <button ion-button *ngIf="!ordenar" (click)="ordenar = true">Ordenar</button>
+      <button ion-button *ngIf="ordenar" (click)="ordenar = false">Listo</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="refrescarLista($event)">
+  <ion-refresher [enabled]="!ordenar" (ionRefresh)="refrescarLista($event)">
     <ion-refresher-content
         pullingIcon="arrow-dropdown"
         pullingText="Pull to refresh"
@@ -15,14 +19,14 @@
         refreshingText="Refreshing...">
     ></ion-refresher-content>
   </ion-refresher>
-  <ion-list>
+  <ion-list [reorder]="ordenar" (ionItemReorder)=reordenasAnimales($event)>
     <ion-item-sliding *ngFor="let animal of animales let i = index">
       <ion-item (click)="reproducir(animal)">
         <ion-avatar item-left>
           <img [src]="animal.imagen">
         </ion-avatar>
         <h2>{{ animal.nombre }}</h2>
-        <ion-icon name="play" item-right *ngIf="!animal.reproduciendo"></ion-icon>
+        <ion-icon name="play" item-right *ngIf="!animal.reproduciendo && !ordenar"></ion-icon>
         <ion-icon name="pause" item-right *ngIf="animal.reproduciendo"></ion-icon>
       </ion-item>
       <ion-item-options side="right">
